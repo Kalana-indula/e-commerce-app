@@ -79,6 +79,7 @@ export default function Footer({
     return (
         <footer className={["bg-black text-white", className].join(" ")}>
             <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:px-8">
+                {/* Top section */}
                 <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
                     {/* Left: Logo */}
                     <div className="flex items-center gap-3">
@@ -123,11 +124,55 @@ export default function Footer({
                     </div>
                 </div>
 
-                {/* Bottom row */}
+                {/* NEW: Nike-like bottom bar (responsive) */}
                 <div className="mt-12 border-t border-white/10 pt-6">
-                    <p className="text-xs font-medium text-white/40">
-                        © {year} {copyrightName}. All rights reserved.
-                    </p>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        {/* Left: location + copyright */}
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                            <div className="flex items-center gap-2 text-sm font-medium text-white/70">
+                                <Image
+                                    src="/location.svg"
+                                    alt=""
+                                    width={16}
+                                    height={16}
+                                    className="h-4 w-4 opacity-90"
+                                />
+                                <span>Croatia</span>
+                            </div>
+
+                            <p className="text-xs font-medium text-white/40">
+                                © {year} {copyrightName}. All rights reserved.
+                            </p>
+                        </div>
+
+                        {/* Right: legal links */}
+                        <nav aria-label="Footer legal" className="flex flex-wrap gap-x-6 gap-y-2">
+                            <Link
+                                href="#"
+                                className="text-xs font-medium text-white/50 transition-colors hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                            >
+                                Guides
+                            </Link>
+                            <Link
+                                href="#"
+                                className="text-xs font-medium text-white/50 transition-colors hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                            >
+                                Terms of Sale
+                            </Link>
+                            <Link
+                                href="#"
+                                className="text-xs font-medium text-white/50 transition-colors hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                            >
+                                Terms of Use
+                            </Link>
+                            <Link
+                                href="#"
+                                className="text-xs font-medium text-white/50 transition-colors hover:text-white/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                            >
+                                Nike Privacy Policy
+                            </Link>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </footer>
