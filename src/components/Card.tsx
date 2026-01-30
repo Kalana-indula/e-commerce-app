@@ -27,17 +27,10 @@ function formatPrice(price: number | string | undefined, currency: string) {
             maximumFractionDigits: 2,
         }).format(price);
     } catch {
-        // fallback if currency code is invalid
         return `$${price.toFixed(2)}`;
     }
 }
 
-/**
- * Reusable product card (Nike-style):
- * - Large product image area
- * - Optional top-left pill badge
- * - Bottom dark info panel with left details + right price
- */
 export default function Card({
                                  title,
                                  subtitle = "Men's Shoes",
@@ -56,51 +49,59 @@ export default function Card({
 
     const priceText = formatPrice(price, currency);
 
+    const badgeTone =
+        badge?.toLowerCase().includes("off") || badge?.toLowerCase().includes("extra")
+            ? "text-green"
+            : "text-red";
+
     return (
         <Wrapper
             {...wrapperProps}
             className={[
-                "group relative block w-full overflow-hidden rounded-3xl",
-                "bg-[hsl(var(--card))] text-[hsl(var(--card-foreground))]",
-                "ring-1 ring-[hsl(var(--border))] transition-shadow hover:shadow-lg",
-                "focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))]",
+                "group relative block overflow-hidden rounded-2xl",
+                "bg-white shadow-sm ring-1 ring-black/5 transition-shadow hover:shadow-md",
+                "focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-[hsl(var(--background))]",
+                // fixed size (with mobile-safe constraint)
+                "w-[432px] h-[520px] max-w-full",
                 className,
             ].join(" ")}
         >
             {/* Badge */}
             {badge && (
-                <div className="absolute left-4 top-4 z-10">
-          <span className="inline-flex items-center rounded-full bg-white/90 px-6 py-2 text-sm font-semibold text-orange-600 shadow-sm">
+                <div className="absolute left-6 top-6 z-10">
+          <span
+              className={[
+                  "inline-flex items-center rounded-full bg-white/90 px-5 py-2 text-sm font-semibold",
+                  "shadow-sm ring-1 ring-black/5 backdrop-blur",
+                  badgeTone,
+              ].join(" ")}
+          >
             {badge}
           </span>
                 </div>
             )}
 
             {/* Image area */}
-            <div className="relative aspect-[3/4] w-full bg-[hsl(var(--background))]">
+            <div className="relative w-full h-[380px] bg-light-200">
                 <Image
                     src={imageSrc}
                     alt={imageAlt}
                     fill
                     priority={priorityImage}
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-contain p-8 transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 432px"
+                    className="object-contain p-10 transition-transform duration-300 ease-out group-hover:scale-[1.02]"
                 />
             </div>
 
-            {/* Bottom info panel */}
-            <div className="bg-black px-6 py-7">
-                <div className="flex items-end justify-between gap-6">
-                    <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-white/25">{title}</p>
-                        <p className="mt-3 text-2xl font-semibold tracking-tight text-white/30">{subtitle}</p>
-                        <p className="mt-2 text-lg font-semibold text-white/25">{meta}</p>
-                    </div>
-
-                    {priceText && (
-                        <p className="shrink-0 text-lg font-semibold text-white/25">{priceText}</p>
-                    )}
+            {/* Bottom info */}
+            <div className="h-[140px] bg-white px-6 py-5">
+                <div className="flex items-start justify-between gap-4">
+                    <p className="min-w-0 truncate text-sm font-semibold text-black">{title}</p>
+                    {priceText && <p className="shrink-0 text-sm font-semibold text-black">{priceText}</p>}
                 </div>
+
+                <p className="mt-2 text-sm font-medium text-black/60">{subtitle}</p>
+                <p className="mt-1 text-sm font-medium text-black/60">{meta}</p>
             </div>
         </Wrapper>
     );
