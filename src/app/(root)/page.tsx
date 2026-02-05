@@ -2,10 +2,10 @@ import React from 'react'
 import Card from "@/src/components/Card";
 
 const Home = () => {
+
     return (
         <>
             {/*best items*/}
-            {/* best items */}
             <section className="w-full bg-[hsl(var(--background))]">
                 <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 md:px-8">
                     <h2 className="text-lg font-semibold tracking-tight text-[hsl(var(--foreground))] sm:text-xl">
@@ -50,8 +50,6 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            `
-
         </>
     )
 }
